@@ -1,0 +1,16 @@
+# Document 07 — Decision Log
+## MPLAD Intelligence (SIH26102)
+
+---
+
+## Architecture & Data Strategy Decision Log
+
+| Date | Decision | Reason & Context | Alternatives Considered | Rejected Alternatives Rationale | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **25-Aug-2026** | **Real Public Data + Synthetic Anomaly Augmentation Strategy** | Grounding the project in authentic empirical distributions (`data.gov.in`, `mplads.gov.in`) provides real baseline project costs, titles, and timelines, while synthetic injection provides controlled ground-truth anomaly cases for evaluation. | Purely synthetic database OR Purely real public data without anomaly ground truth. | Purely synthetic lacks real-world realism; Purely real data lacks ground-truth fraud labels required for ML precision/recall evaluation. | **APPROVED** |
+| **25-Aug-2026** | **Treat Dataful as Optional Third-Party Enrichment** | Dataful is an independent 3rd-party service. Making it a hard core dependency creates external risk if free API access is restricted. | Making Dataful a mandatory core database pipeline dependency. | Violates data access principles; core MVP pipeline must operate independently using official open data. | **APPROVED** |
+| **25-Aug-2026** | **Investigative Framing (Risk Priority Score vs. Fraud Verdict)** | Legally and operationally correct framing. System generates risk signals and evidence for human officers, rather than issuing automated accusations. | Automated Fraud Classification ("Fraud Confirmed"). | Legally indefensible, prone to false positives, and misrepresents AI capabilities to government evaluators. | **APPROVED** |
+| **25-Aug-2026** | **Isolation Forest (Primary Baseline) + Compliance Rules (LOF Optional)** | No reliable labeled fraud dataset exists for supervised classification. Isolation Forest isolates statistical outliers as primary baseline, while rules catch hard statutory breaches. LOF is an optional Day-5 experiment. | Supervised Deep Learning Classifier (Neural Net / XGBoost). | Supervised classification requires large labeled ground-truth training sets, which are unavailable in public government domains. | **APPROVED** |
+| **25-Aug-2026** | **Day 1 Data Validation Sprint Sequence** | Scheduling source validation and schema inspection on Day 1 guarantees data pipeline stability before building ML models or API endpoints. Day 10 refocused on integration testing, UI polish, and demo prep. | Building ML models on Day 1 using unverified dataset assumptions. | Avoids re-engineering data structures mid-sprint if raw CSV schemas differ from expectations. | **APPROVED** |
+| **25-Aug-2026** | **SQLite for Local MVP Development** | SQLite is file-based, zero-configuration, and requires no external database server installation for student hackathon environments. | PostgreSQL / Docker Container setup on Day 1. | PostgreSQL adds deployment friction for local 10-day testing; schema uses SQLAlchemy for easy PostgreSQL migration. | **APPROVED** |
+| **25-Aug-2026** | **Implementation Go/No-Go Decision Status** | Project status is GO, explicitly subject to Day-1 source and schema validation. | Claiming full technical validation before inspecting raw primary feeds. | Ensures honest engineering posture for government hackathon evaluators. | **APPROVED — GO (Subject to Day-1 Validation)** |
